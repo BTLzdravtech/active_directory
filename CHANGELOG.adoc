@@ -1,7 +1,7 @@
 Ruby ActiveDirectory ChangeLog
 ==============================
 
-:website: https://github.com/Mazwak/active_directory
+:website: https://github.com/w0de/active_directory
 
 
 Version 1.6.2 (2015-06-04)
@@ -9,3 +9,14 @@ Version 1.6.2 (2015-06-04)
 .Additions and changes
 - Add from_dn method in base to access a single entry
 - Add an experimental security group creation
+
+active_directory_redux Version 1.6.3 (fork) (2018-01-25)
+--------------------------
+
+.Addition and changes
+- Manually added many changes from forks:
+    - Removed hardcoded base dn from experimental security group creation method
+      (https://github.com/biola/active_directory/commit/e0e25f4d1631bee2dd1a19993c2279a8d25f8acd)
+
+- Edited ActiveDirectory::User.move method. Experimental. Working on my env.
+- Added ActiveDirectory::User.managedcomputers method

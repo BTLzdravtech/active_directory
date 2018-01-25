@@ -7,6 +7,13 @@ See documentation on ActiveDirectory::Base for more information.
 Caching:
 Queries for membership and group membership are based on the distinguished name of objects.  Doing a lot of queries, especially for a Rails app, is a sizable slowdown.  To alleviate the problem, I've implemented a very basic cache for queries which search by :distinguishedname.  This is disabled by default.  All other queries are unaffected.
 
+# Status
+
+Master branch appears unmaintained. Over the years, various forks with small fixes.This branch will accumlate various fixes from forks, and add features. The eventual goal is to release a new, robust AD gem. Please see CHANGELOG.adoc
+
+# Contributing
+
+Please! It's the wild west out here.
 
 A code example is worth a thousand words:
 
