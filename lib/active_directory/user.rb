@@ -61,7 +61,7 @@ module ActiveDirectory
     # Returns an array of computer objects owner which have this user set
     # in their `managedBy` field.
     #
-    # Return an empty array if not such computer objects found
+    # Returns nil if not such computer objects found
     # Should be better (use map) - w0de
     #
     def managedcomputers
@@ -87,6 +87,7 @@ module ActiveDirectory
           end
         end
       end
+      rtr = rtr.count == 0 ? nil : rtr
       rtr
     end
 
