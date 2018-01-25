@@ -512,7 +512,7 @@ module ActiveDirectory
     def move(new_sup, new_rdn: nil)
       return false if new_record?
       new_rdn = new_rdn ? new_rdn : "CN=#{get_attr(:cn)}"
-      puts "Beginging move method"
+      puts "Beginging move method!"
       puts "Moving #{distinguishedName} to #{new_rdn},#{new_sup}"
 
       if @@ldap.rename(
