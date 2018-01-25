@@ -511,13 +511,14 @@ module ActiveDirectory
     #
     def move(new_sup, new_rdn: nil)
       return false if new_record?
-      new_rdd = new_rdn ? new_rdn : "CN=#{get_attr(:cn)}"
+      new_rdn = new_rdn ? new_rdn : "CN=#{get_attr(:cn)}"
+      puts "Beginging move method"
       puts "Moving #{distinguishedName} to #{new_rdn},#{new_sup}"
 
       if @@ldap.rename(
         olddn: distinguishedName,
         newrdn: new_rdn,
-        delete_attributes: false
+        delete_attributes: false,
         newsup: new_sup
       )
         return true
