@@ -66,7 +66,7 @@ module ActiveDirectory
       attributes = {
         objectClass: %w[top group],
         sAMAccountName: name,
-        objectCategory: 'CN=Group,CN=Schema,CN=Configuration,DC=afssa,DC=fr',
+        objectCategory: "CN=Group,CN=Schema,CN=Configuration,#{@@settings[:base]}",
         groupType: type_mask.to_s
       }
       @@ldap.add(dn: dn, attributes: attributes)
