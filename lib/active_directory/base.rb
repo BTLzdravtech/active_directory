@@ -263,6 +263,8 @@ module ActiveDirectory
         filter: args[1].nil? ? NIL_FILTER : args[1],
         in: args[1].nil? ? '' : (args[1][:in] || '')
       }
+      # some folks are commenting this out as a fix (FIXME?) but I recieve no
+      # errors (yet)
       options[:filter].delete(:in)
 
       cached_results = find_cached_results(args[1])
@@ -415,7 +417,7 @@ module ActiveDirectory
         if attribute == :cn
           rename = true
         else
-          if values.nil? || values.empty?
+          if values.nil? || values.to_s.empty?
             operations << [:delete, attribute, nil]
           else
             values = [values] unless values.is_a? Array
@@ -509,21 +511,27 @@ module ActiveDirectory
     # Net::LDAP#modrdn method, or provide a similar method for
     # moving / renaming LDAP entries.
     #
-    def move(new_sup, new_rdn: nil)
+    # FIXME Why are we creating a new LDAP connection here? This doesn't fit with
+    # the 'pattern' used for this library (exposes a single LDAP connection, not
+    # multiple LDAP connection instances.)
+    def move(superior, new_rdn: nil)
       return false if new_record?
       new_rdn = new_rdn ? new_rdn : "CN=#{get_attr(:cn)}"
-      puts "Beginging move method!"
-      puts "Moving #{distinguishedName} to #{new_rdn},#{new_sup}"
+      puts 'hello from my fork'
+      puts "Moving #{get_attr(:dn)} to #{new_rdn},#{superior}"
 
-      if @@ldap.rename(
-        olddn: distinguishedName,
+      settings = @@settings.dup
+
+      temp_ldap = Net::LDAP.new(settings)
+
+      if temp_ldap.rename(
+        olddn: get_attr(:dn),
         newrdn: new_rdn,
         delete_attributes: false,
-        newsup: new_sup
+        new_superior: superior
       )
         return true
       else
-        puts Base.error
         return false
       end
     end
