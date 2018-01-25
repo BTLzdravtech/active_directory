@@ -514,13 +514,7 @@ module ActiveDirectory
       new_rdd = new_rdn ? new_rdn : "CN=#{get_attr(:cn)}"
       puts "Moving #{distinguishedName} to #{new_rdn},#{new_sup}"
 
-      settings = @@settings.dup
-      settings[:port] = 636
-      settings[:encryption] = { method: :simple_tls }
-
-      ldap = Net::LDAP.new(settings)
-
-      if ldap.rename(
+      if @@ldap.rename(
         olddn: distinguishedName,
         newrdn: new_rdn,
         delete_attributes: false
