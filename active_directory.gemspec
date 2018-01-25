@@ -3,7 +3,7 @@
 Gem::Specification.new do |s|
   s.name = 'active_directory'
   s.license = 'GPL-3.0'
-  s.version = '1.6.2p1'
+  s.version = '1.6.3'
   s.date = Date.today.to_s
   s.summary = "An interface library for accessing Microsoft's Active Directory."
   s.description = <<-DESC
