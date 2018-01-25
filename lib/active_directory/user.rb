@@ -57,6 +57,40 @@ module ActiveDirectory
     end
 
     #
+    #
+    # Returns an array of computer objects owner which have this user set
+    # in their `managedBy` field.
+    #
+    # Return an empty array if not such computer objects found
+    # Should be better (use map) - w0de
+    #
+    def managedcomputers
+      # The managed by field is either nil, a string with a single dn, or
+      # an array of such strings. We need an array.
+      rtr = []
+      managed = managedobjects
+      managed = managed ? managed : []
+      managed = managed.class == Net::BER::BerIdentifiedString ? [managed] : \
+        managed
+      managed.each do |dn|
+        # It's a string. We should use net-ldap to parse it, since its a special
+        # net-ldap string (see class check above), but this regex works.
+        names = dn.scan(
+          /(?<kv>(?<key>[A-Z]{2})=(?<value>[A-Za-z0-9\-\. \(\)]{3,}),)/
+        )
+        names.each do |full, name, value|
+          if name == 'CN'
+            machine_obj = ActiveDirectory::Computer.find(:first, :cn => value)
+            if machine_obj
+              rtr.push(machine_obj)
+            end
+          end
+        end
+      end
+      rtr
+    end
+
+    #
     # Return the User's manager (another User object), depending on
     # what is stored in the manager attribute.
     #
