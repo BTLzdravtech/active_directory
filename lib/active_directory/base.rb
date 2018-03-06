@@ -263,9 +263,10 @@ module ActiveDirectory
         filter: args[1].nil? ? NIL_FILTER : args[1],
         in: args[1].nil? ? '' : (args[1][:in] || '')
       }
+
       # some folks are commenting this out as a fix (FIXME?) but I recieve no
       # errors (yet)
-      #options[:filter].delete(:in)
+      # options[:filter].delete(:in)
 
       cached_results = find_cached_results(args[1])
       return cached_results if cached_results || cached_results.nil?
