@@ -266,21 +266,19 @@ module ActiveDirectory
     # (a User or a Group) back, or nil, if there were no entries
     # matching your filter.
     #
-    def self.find(scope, *args)
+    def self.find(*args)
       return false unless connected?
 
-      regex_args = args.select { |k,v| v.class == Regexp }
-      args = args.select { |k,v| v.class != Regexp }
       options = {
-        filter: args[0].nil? ? NIL_FILTER : args[0],
-        in: args[0].nil? ? '' : (args[0][:in] || '')
+        filter: args[1].nil? ? NIL_FILTER : args[1],
+        in: args[1].nil? ? '' : (args[1][:in] || '')
       }
 
       # some folks are commenting this out as a fix (FIXME?) but I recieve no
       # errors (yet)
       # options[:filter].delete(:in)
 
-      cached_results = find_cached_results(args[0])
+      cached_results = find_cached_results(args[1])
       return cached_results if cached_results || cached_results.nil?
 
       options[:in] = [options[:in].to_s, @@settings[:base]].delete_if(&:empty?).join(',')
@@ -292,18 +290,12 @@ module ActiveDirectory
       options[:filter] = options[:filter] & filter unless filter == NIL_FILTER
 
       if scope == :all
-        results = find_all(options)
+        find_all(options)
       elsif scope == :first
-        results = [find_first(options)]
+        find_first(options)
       else
         raise ArgumentError, 'Invalid scope (not :all or :first) passed to find'
       end
-
-      regex_args.each do |k,v|
-        results = results.select { |r| r[k] =~ v }
-      end
-
-      scope == :first ? results[0] : results
     end
 
     ##
