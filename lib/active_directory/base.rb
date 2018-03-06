@@ -269,6 +269,8 @@ module ActiveDirectory
     def self.find(*args)
       return false unless connected?
 
+      scope = args[0]
+      
       options = {
         filter: args[1].nil? ? NIL_FILTER : args[1],
         in: args[1].nil? ? '' : (args[1][:in] || '')
