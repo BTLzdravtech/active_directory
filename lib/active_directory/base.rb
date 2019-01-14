@@ -270,7 +270,7 @@ module ActiveDirectory
       return false unless connected?
 
       scope = args[0]
-      
+
       options = {
         filter: args[1].nil? ? NIL_FILTER : args[1],
         in: args[1].nil? ? '' : (args[1][:in] || '')
@@ -648,12 +648,12 @@ module ActiveDirectory
     end
 
     def method_missing(name, args = []) # :nodoc:
-      name = name.to_s.downcase
+      name_s = name.to_s.downcase
 
-      return set_attr(name.chop, args) if name[-1] == '='
+      return set_attr(name_s.chop, args) if name_s[-1] == '='
 
       if valid_attribute? name.to_sym
-        get_attr(name)
+        get_attr(name.to_sym)
       else
         super
       end
