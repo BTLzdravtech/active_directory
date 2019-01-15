@@ -529,14 +529,10 @@ module ActiveDirectory
     def move(superior, new_rdn: nil)
       return false if new_record?
       new_rdn = new_rdn ? new_rdn : "CN=#{get_attr(:cn)}"
-      puts 'hello from my fork'
+      puts 'hello from my fork - updated'
       puts "Moving #{get_attr(:dn)} to #{new_rdn},#{superior}"
 
-      settings = @@settings.dup
-
-      temp_ldap = Net::LDAP.new(settings)
-
-      temp_ldap.rename(
+      @@ldap.rename(
         olddn: get_attr(:dn),
         newrdn: new_rdn,
         delete_attributes: false,
