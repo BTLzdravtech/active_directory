@@ -97,6 +97,10 @@ module ActiveDirectory
       @@ldap.get_operation_result.code
     end
 
+    def self.operation_result
+      @@ldap.get_operation_result
+    end
+
     ##
     # Check to see if the last query produced an error
     # Note: Invalid username/password combinations will not
