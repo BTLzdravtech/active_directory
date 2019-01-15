@@ -536,16 +536,12 @@ module ActiveDirectory
 
       temp_ldap = Net::LDAP.new(settings)
 
-      if temp_ldap.rename(
+      temp_ldap.rename(
         olddn: get_attr(:dn),
         newrdn: new_rdn,
         delete_attributes: false,
         new_superior: superior
       )
-        return true
-      else
-        return false
-      end
     end
 
     # FIXME: Need to document the Base::new
