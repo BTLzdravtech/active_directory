@@ -116,7 +116,7 @@ module ActiveDirectory
       @@ldap_connected ||= @@ldap.bind unless @@ldap.nil?
       @@ldap_connected
     rescue Net::LDAP::LdapError
-      false
+      raise
     end
 
     ##
@@ -539,6 +539,7 @@ module ActiveDirectory
       @@ldap.rename(
         olddn: get_attr(:dn),
         newrdn: new_rdn,
+        delete_attributes: true,
         new_superior: superior
       )
     end
