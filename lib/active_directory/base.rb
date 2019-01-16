@@ -539,7 +539,7 @@ module ActiveDirectory
       @@ldap.rename(
         olddn: get_attr(:dn),
         newrdn: new_rdn,
-        delete_attributes: false,
+        delete_attributes: true,
         new_superior: superior
       )
     end
