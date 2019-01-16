@@ -648,7 +648,7 @@ module ActiveDirectory
 
       return set_attr(name_s.chop, args) if name_s[-1] == '='
 
-      if valid_attribute? name.to_sym
+      if valid_attribute? name_s
         get_attr(name_s)
       else
         super
