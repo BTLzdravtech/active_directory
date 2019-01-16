@@ -452,7 +452,7 @@ module ActiveDirectory
 
       unless operations.empty?
         @@ldap.modify(
-          dn: distinguishedName,
+          dn: get_attr(:dn),
           operations: operations
         )
       end
