@@ -452,7 +452,7 @@ module ActiveDirectory
 
       unless operations.empty?
         @@ldap.modify(
-          dn: get_attr(:dn),
+          dn: distinguishedName,
           operations: operations
         )
       end
@@ -649,7 +649,7 @@ module ActiveDirectory
       return set_attr(name_s.chop, args) if name_s[-1] == '='
 
       if valid_attribute? name.to_sym
-        get_attr(name.to_sym)
+        get_attr(name_s)
       else
         super
       end
