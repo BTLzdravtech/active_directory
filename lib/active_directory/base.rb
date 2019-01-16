@@ -644,12 +644,12 @@ module ActiveDirectory
     end
 
     def method_missing(name, args = []) # :nodoc:
-      name_s = name.to_s.downcase
+      name = name.to_s.downcase
 
-      return set_attr(name_s.chop, args) if name_s[-1] == '='
+      return set_attr(name.chop, args) if name[-1] == '='
 
-      if valid_attribute? name_s
-        get_attr(name_s)
+      if valid_attribute? name.to_sym
+        get_attr(name)
       else
         super
       end
