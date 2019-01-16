@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '~> 2'
   s.add_dependency 'bindata', '~> 2'
-  s.add_dependency 'ruby-net-ldap'
-
+  
   s.add_development_dependency 'minitest', '~> 5'
 end
