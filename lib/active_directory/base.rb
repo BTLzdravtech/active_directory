@@ -651,7 +651,7 @@ module ActiveDirectory
       if valid_attribute? name.to_sym
         get_attr(name)
       else
-        super
+        super(name.to_sym, args = [])
       end
     end
   end
