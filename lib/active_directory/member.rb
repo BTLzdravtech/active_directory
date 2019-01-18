@@ -25,7 +25,7 @@ module ActiveDirectory
     # the passed Group object.
     #
     def member_of?(usergroup)
-      group_dns = memberOf
+      group_dns = self[:memberof]
       return false if group_dns.nil? || group_dns.empty?
       # group_dns = [group_dns] unless group_dns.is_a?(Array)
       group_dns.map(&:dn).include?(usergroup.dn)
