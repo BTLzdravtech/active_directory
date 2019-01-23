@@ -654,5 +654,9 @@ module ActiveDirectory
         super(name.to_sym, args = [])
       end
     end
+
+    def attributes
+      @entry.attribute_names.map { |k| [k, get_attr(k)] }.to_h
+    end
   end
 end
