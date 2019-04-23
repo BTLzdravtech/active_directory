@@ -18,6 +18,8 @@
 #
 #++ license
 
+require 'time'
+
 module ActiveDirectory
   module FieldType
     class Date
