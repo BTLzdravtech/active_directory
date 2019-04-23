@@ -34,7 +34,7 @@ module ActiveDirectory
       # Decodes an Active Directory date when stored as ISO8601
       #
       def self.decode(remote_time)
-        Time.parse(remote_time)
+        ::Time.parse(remote_time)
       end
     end
   end
