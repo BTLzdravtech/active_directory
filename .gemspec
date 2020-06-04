@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir['lib/**/*', 'README*', 'LICENSE*', 'VERSION*']
   s.extra_rdoc_files = [
-    'README.md'
+      'README.md'
   ]
 
   s.required_ruby_version = '~> 2'
