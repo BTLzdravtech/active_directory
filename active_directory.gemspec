@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.name = 'active_directory'
   s.license = 'GPL-3.0'
   s.version = '1.6.5'
-  s.date = Date.today.to_s
+  s.date = '2020-04-06'
   s.summary = "An interface library for accessing Microsoft's Active Directory."
   s.description = <<-DESC
   ActiveDirectory uses Net::LDAP to provide a means of accessing
