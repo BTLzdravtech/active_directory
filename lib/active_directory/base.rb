@@ -48,6 +48,10 @@ module ActiveDirectory
     #
     NIL_FILTER = Net::LDAP::Filter.pres('cn')
 
+    @@connection_in_use = nil
+    @@ldap_connections = {}
+    @@ldap_settings = {}
+    @@ldap_connecteds = {}
     @@ldap = nil
     @@ldap_connected = false
     @@caching = false
@@ -82,9 +86,32 @@ module ActiveDirectory
     # documentation.
     #
     def self.setup(settings)
+      name = settings.delete(:name)
+      @@connection_in_use = name
+
       @@settings = settings
+      @@ldap_settings[name] = @@settings
+
       @@ldap_connected = false
-      @@ldap = Net::LDAP.new(settings)
+      @@ldap_connecteds[name] = @@ldap_connected
+
+      @@ldap = Net::LDAP.new(@@settings)
+      @@ldap_connections[name] = @@ldap
+    end
+
+    def self.use(name)
+      @@settings = @@ldap_settings[name]
+
+      @@ldap_connecteds[@@connection_in_use] = @@ldap_connected
+      @@ldap_connected = @@ldap_connecteds[name]
+
+      @@ldap = @@ldap_connections[name]
+
+      @@connection_in_use = name
+    end
+
+    def self.current?
+      @@connection_in_use
     end
 
     def self.error
